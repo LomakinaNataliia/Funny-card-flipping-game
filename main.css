@@ -1,0 +1,85 @@
+body {
+  /* background-image: linear-gradient(-225deg, #e3fdf5 0%, #ffe6fa 100%); */
+  font-family: "Comfortaa", cursive;
+
+  /* width: 100%;
+  min-height: 100vh; */
+}
+
+.card__container {
+  margin: 0 auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 20px;
+  margin: 25px 25px;
+  width: 200px;
+  height: 200px;
+  perspective: 1000px;
+}
+
+.card__inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+}
+
+.card__inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card__face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0px 0px 15px 3px rgba(26, 100, 214, 0.2);
+}
+
+.card__face--front {
+  background-image: url(./magen-david-260px.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* z-index: 1; */
+}
+
+.card__face--front h2 {
+  color: #589fd3;
+  font-family: "Ruda", sans-serif;
+  font-size: 32px;
+}
+
+.card__face--back {
+  /* background-color: white; */
+  background-image: linear-gradient(-225deg, #e3fdf5 0%, #ffe6fa 100%);
+  transform: rotateY(180deg);
+  padding: 10px;
+}
+
+.card__face--back:hover {
+  width: 550px;
+  transition: 2s;
+}
+
+.card__face--back span {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 32px;
+}
