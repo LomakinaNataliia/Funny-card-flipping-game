@@ -1,6 +1,7 @@
 body {
+  background: linear-gradient(to top, white 0%, azure 100%);
+  color: #008ccf;
   font-family: "Ruda", sans-serif;
-  color: #589fd3;
   margin: 0 auto;
   max-width: 1100px;
   /* width: 100%;
@@ -8,16 +9,20 @@ body {
 }
 
 h1 {
-  background: linear-gradient(to top, azure 0%, #589fd3 100%);
   border-radius: 20px;
-  color: azure;
+  box-shadow: 5px 5px 15px 3px rgba(26, 100, 214, 0.2);
+  color: #008ccf;
   padding: 15px;
   text-align: center;
 }
 
 img {
-  max-width: 100%;
-  height: auto;
+  /* max-width: 100%;
+  height: auto; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
 .card__container {
@@ -32,7 +37,7 @@ img {
 }
 
 .card {
-  background-color: white;
+  background-color: transparent;
   border-radius: 20px;
   margin: 25px 25px;
   width: 200px;
@@ -41,6 +46,8 @@ img {
 }
 
 .card__inner {
+  background-color: white;
+  border-radius: 20px;
   width: 100%;
   height: 100%;
   transition: transform 1s;
@@ -76,7 +83,7 @@ img {
 }
 
 .card__face--back {
-  background-image: linear-gradient(-225deg, #e3fdf5 0%, #ffe6fa 100%);
+  background-color: white;
   transform: rotateY(180deg);
   padding: 10px;
 }
