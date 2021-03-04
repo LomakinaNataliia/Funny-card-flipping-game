@@ -17,12 +17,7 @@ h1 {
 }
 
 img {
-  /* max-width: 100%;
-  height: auto; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
+  padding: 10px;
 }
 
 .card__container {
@@ -56,7 +51,7 @@ img {
   position: relative;
 }
 
-.card__inner.is-flipped {
+.card__inner.flipping {
   transform: rotateY(180deg);
 }
 
@@ -85,7 +80,6 @@ img {
 .card__face--back {
   background-color: white;
   transform: rotateY(180deg);
-  padding: 10px;
 }
 
 .is-hidden {
