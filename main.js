@@ -33,27 +33,27 @@ window.onload = function () {
   fillArray();
   shuffleArray();
   fillDivs();
-  
+
   //new game button
 };
 
 cards.forEach((card) => {
-    card.addEventListener("click", function () {
-      card.classList.toggle("flipping");
-      card.parentElement.classList.toggle("is-flipped");      
-      checkDoubles(card);
-    });
+  card.addEventListener("click", function () {
+    card.classList.toggle("flipping");
+    card.parentElement.classList.toggle("is-flipped");
+    // checkDoubles(card);
   });
-  
+});
+
 //if two cards flipped - checkDoubles & clear? else - continue
 //checkDoubles(); //two cards are simmilar - setTimeout(hideCards, 2000);//two cards are different - setTimeout(flipCards, 2000);
-function checkDoubles(){
-  if(document.slide.src[0]===document.slide.src[1]{
-    setTimeout(hideCards, 2000);
-  }else{
-    setTimeout(flipCards, 2000);
-  }
-}
+// function checkDoubles(){
+//   if(document.slide.src[0]===document.slide.src[1]{
+//     setTimeout(hideCards, 2000);
+//   }else{
+//     setTimeout(flipCards, 2000);
+//   }
+// }
 
 // function hideCards(){
 
