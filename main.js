@@ -7,6 +7,7 @@ let cardImg = document.querySelectorAll("img");
 
 let count = 0;
 
+//create 12 objects in array (6 and 6 same imges)
 function fillArray() {
   for (let i = 1; i < 7; i++) {
     animals.push(`./img/animal${i}.jpg`);
@@ -16,6 +17,7 @@ function fillArray() {
   }
 }
 
+//shuffle images in array
 function shuffleArray() {
   for (var i = animals.length - 1; i > 0; i--) {
     var randomIndex = Math.floor(Math.random() * (i + 1));
@@ -25,6 +27,7 @@ function shuffleArray() {
   }
 }
 
+//fill in 12 blocks with each card
 function fillDivs() {
   for (let i = 0; i < cardImg.length; i++) {
     for (let j = 0; j < 1; j++) {
@@ -33,6 +36,7 @@ function fillDivs() {
   }
 }
 
+//when page loads start following functions:
 window.onload = function () {
   fillArray();
   shuffleArray();
@@ -41,6 +45,7 @@ window.onload = function () {
   //new game button
 };
 
+//each card has event on click, each flipped card push to array
 cards.forEach((card) => {
   card.addEventListener("click", function () {
     count++;
@@ -48,17 +53,15 @@ cards.forEach((card) => {
     card.parentElement.classList.toggle("is-flipped");
 
     flippedCards.push(card);
+    //after 2 sec it starts to check 2 flipped cards
     setTimeout(function () {
       if (count == 2) {
-        // console.log(count);
-        // console.log(flippedCards);
-
+        //chack if cards are similar - hideCards(), if cards are different - flipCards(), then clear array
         if (checkDoubles() === 0) {
           hideCards();
         } else {
           flipCards();
         }
-
         count = 0;
         flippedCards = new Array();
       } else {
@@ -66,9 +69,6 @@ cards.forEach((card) => {
     }, 2000);
   });
 });
-
-//if two cards flipped - checkDoubles & clear? else - continue
-//checkDoubles(); //two cards are simmilar - setTimeout(hideCards, 2000);//two cards are different - setTimeout(flipCards, 2000);
 
 function checkDoubles() {
   let firstCard = flippedCards[0].children[1].childNodes[1].currentSrc;
