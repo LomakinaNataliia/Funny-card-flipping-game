@@ -51,7 +51,7 @@ img {
   position: relative;
 }
 
-.card__inner.flipping {
+.card__inner.is-flipped {
   transform: rotateY(180deg);
 }
 

@@ -1,7 +1,11 @@
 let animals = new Array();
+let flippedCards = new Array();
 
 const cards = document.querySelectorAll(".card__inner");
-const cardImg = document.querySelectorAll("img");
+let cardImg = document.querySelectorAll("img");
+// let flippedCard = document.querySelectorAll(".is-flipped");
+
+let count = 0;
 
 function fillArray() {
   for (let i = 1; i < 7; i++) {
@@ -39,27 +43,52 @@ window.onload = function () {
 
 cards.forEach((card) => {
   card.addEventListener("click", function () {
-    card.classList.toggle("flipping");
+    count++;
+    card.classList.toggle("is-flipped");
     card.parentElement.classList.toggle("is-flipped");
-    // checkDoubles(card);
+
+    flippedCards.push(card);
+    setTimeout(function () {
+      if (count == 2) {
+        // console.log(count);
+        // console.log(flippedCards);
+
+        if (checkDoubles() === 0) {
+          hideCards();
+        } else {
+          flipCards();
+        }
+
+        count = 0;
+        flippedCards = new Array();
+      } else {
+      }
+    }, 2000);
   });
 });
 
 //if two cards flipped - checkDoubles & clear? else - continue
 //checkDoubles(); //two cards are simmilar - setTimeout(hideCards, 2000);//two cards are different - setTimeout(flipCards, 2000);
-// function checkDoubles(){
-//   if(document.slide.src[0]===document.slide.src[1]{
-//     setTimeout(hideCards, 2000);
-//   }else{
-//     setTimeout(flipCards, 2000);
-//   }
-// }
 
-// function hideCards(){
+function checkDoubles() {
+  let firstCard = flippedCards[0].children[1].childNodes[1].currentSrc;
+  let secondCard = flippedCards[1].children[1].childNodes[1].currentSrc;
 
-// pika.classList.add("is-hidden");
-// }
+  return firstCard.localeCompare(secondCard);
+}
 
-// function flipCards(){
-//   pika.classList.remove("is-flipped");
-// }
+function hideCards() {
+  // setTimeout(function () {
+  flippedCards.forEach((element) => {
+    element.parentElement.classList.add("is-hidden");
+  });
+  // }, 5000);
+}
+
+function flipCards() {
+  // setTimeout(function () {
+  flippedCards.forEach((element) => {
+    element.classList.toggle("is-flipped");
+  });
+  // }, 5000);
+}
