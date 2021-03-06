@@ -20,6 +20,29 @@ img {
   padding: 10px;
 }
 
+button.new-game-button {
+  background: transparent;
+  color: #008ccf;
+  font-size: 16px;
+
+  border: 2px solid #008ccf;
+  border-radius: 20px;
+  box-shadow: 5px 5px 15px 3px rgba(26, 100, 214, 0.2);
+
+  margin: 30px auto;
+  padding: 10px;
+  display: block;
+  transition: all 200ms ease-in-out;
+}
+
+button.new-game-button:hover {
+  color: #008ccf;
+  background: linear-gradient(to top, azure 0%, #008ccf 100%);
+  cursor: pointer;
+}
+
+/* divs: */
+
 .card__container {
   margin: 0 auto;
   width: 95%;

@@ -1,14 +1,31 @@
 let animals = new Array();
 let flippedCards = new Array();
+let count = 0;
+let hiddenCards = 0;
 
+const gameButton = document.querySelector(".new-game-button");
+const cardsContainer = document.querySelector(".card__container");
 const cards = document.querySelectorAll(".card__inner");
 let cardImg = document.querySelectorAll("img");
-// let flippedCard = document.querySelectorAll(".is-flipped");
 
-let count = 0;
+//hide cards
+cardsContainer.classList.add("is-hidden");
+// add event to the button
+gameButton.addEventListener("click", hideButton);
+
+//when button is clicked, hide it and start following functions:
+function hideButton() {
+  gameButton.style.display = "none";
+  cardsContainer.classList.remove("is-hidden");
+
+  loadArray();
+  shuffleArray();
+  loadDivs();
+  setFlipping();
+}
 
 //create 12 objects in array (6 and 6 same imges)
-function fillArray() {
+function loadArray() {
   for (let i = 1; i < 7; i++) {
     animals.push(`./img/animal${i}.jpg`);
   }
@@ -28,7 +45,7 @@ function shuffleArray() {
 }
 
 //fill in 12 blocks with each card
-function fillDivs() {
+function loadDivs() {
   for (let i = 0; i < cardImg.length; i++) {
     for (let j = 0; j < 1; j++) {
       cardImg[i].src = animals[i];
@@ -36,42 +53,33 @@ function fillDivs() {
   }
 }
 
-//when page loads start following functions:
-window.onload = function () {
-  fillArray();
-  shuffleArray();
-  fillDivs();
-  addClick();
-
-  //new game button
-};
-
-//each card has event on click, each flipped card push to array
-
-function addClick() {
+//each card has event on click to flip
+function setFlipping() {
   cards.forEach((card) => {
     card.addEventListener("click", function () {
       count++;
       if (count <= 2) {
         card.classList.toggle("is-flipped");
         card.parentElement.classList.toggle("is-flipped");
-
+        //each flipped card push to array
         flippedCards.push(card);
         //after 2 sec it starts to check 2 flipped cards
         setTimeout(function () {
           if (count == 2) {
-            //chack if cards are similar - hideCards(), if cards are different - flipCards(), then clear array
+            //check if cards are similar - hideCards(), if cards are different - flipCards(), then clear array
             if (checkDoubles() === 0) {
               hideCards();
             } else {
               flipCards();
             }
+
             count = 0;
             flippedCards = new Array();
           } else {
           }
         }, 2000);
       } else {
+        //when more than 2 cards are flipped - flip it backward and clear all counters and array
         flipCards();
         count = 0;
         flippedCards = new Array();
@@ -79,7 +87,7 @@ function addClick() {
     });
   });
 }
-
+//return true (0) - if cards are similar, return false (1,-1) - if cards are deifferent
 function checkDoubles() {
   let firstCard = flippedCards[0].children[1].childNodes[1].currentSrc;
   let secondCard = flippedCards[1].children[1].childNodes[1].currentSrc;
@@ -87,18 +95,32 @@ function checkDoubles() {
   return firstCard.localeCompare(secondCard);
 }
 
-function hideCards() {
-  // setTimeout(function () {
-  flippedCards.forEach((element) => {
-    element.parentElement.classList.add("is-hidden");
-  });
-  // }, 5000);
-}
-
+//remove css class "is-flipped"
 function flipCards() {
-  // setTimeout(function () {
   flippedCards.forEach((element) => {
     element.classList.toggle("is-flipped");
   });
-  // }, 5000);
+}
+
+//change css class to "is-hidden"(visibility:hidden) and count hidden cards
+function hideCards() {
+  flippedCards.forEach((element) => {
+    element.parentElement.classList.add("is-hidden");
+  });
+  hiddenCards += 2;
+  check12();
+}
+
+//when there are 12 hidden cards do the following:
+function check12() {
+  if (hiddenCards == 12) {
+    alert(`Congratulations!🎉`);
+    showButton();
+  }
+}
+
+//reload the page and show the new game button
+function showButton() {
+  // gameButton.style.display = "block";
+  document.location.reload();
 }
