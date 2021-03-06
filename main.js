@@ -41,34 +41,44 @@ window.onload = function () {
   fillArray();
   shuffleArray();
   fillDivs();
+  addClick();
 
   //new game button
 };
 
 //each card has event on click, each flipped card push to array
-cards.forEach((card) => {
-  card.addEventListener("click", function () {
-    count++;
-    card.classList.toggle("is-flipped");
-    card.parentElement.classList.toggle("is-flipped");
 
-    flippedCards.push(card);
-    //after 2 sec it starts to check 2 flipped cards
-    setTimeout(function () {
-      if (count == 2) {
-        //chack if cards are similar - hideCards(), if cards are different - flipCards(), then clear array
-        if (checkDoubles() === 0) {
-          hideCards();
-        } else {
-          flipCards();
-        }
+function addClick() {
+  cards.forEach((card) => {
+    card.addEventListener("click", function () {
+      count++;
+      if (count <= 2) {
+        card.classList.toggle("is-flipped");
+        card.parentElement.classList.toggle("is-flipped");
+
+        flippedCards.push(card);
+        //after 2 sec it starts to check 2 flipped cards
+        setTimeout(function () {
+          if (count == 2) {
+            //chack if cards are similar - hideCards(), if cards are different - flipCards(), then clear array
+            if (checkDoubles() === 0) {
+              hideCards();
+            } else {
+              flipCards();
+            }
+            count = 0;
+            flippedCards = new Array();
+          } else {
+          }
+        }, 2000);
+      } else {
+        flipCards();
         count = 0;
         flippedCards = new Array();
-      } else {
       }
-    }, 2000);
+    });
   });
-});
+}
 
 function checkDoubles() {
   let firstCard = flippedCards[0].children[1].childNodes[1].currentSrc;
