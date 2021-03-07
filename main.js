@@ -2,6 +2,7 @@ let animals = new Array();
 let flippedCards = new Array();
 let count = 0;
 let hiddenCards = 0;
+var timeout;
 
 const gameButton = document.querySelector(".new-game-button");
 const cardsContainer = document.querySelector(".card__container");
@@ -58,6 +59,7 @@ function setFlipping() {
   cards.forEach((card) => {
     card.addEventListener("click", function () {
       count++;
+
       if (count <= 2) {
         card.classList.toggle("is-flipped");
         card.parentElement.classList.toggle("is-flipped");
@@ -80,9 +82,11 @@ function setFlipping() {
         }, 2000);
       } else {
         //when more than 2 cards are flipped - flip it backward and clear all counters and array
-        flipCards();
-        count = 0;
-        flippedCards = new Array();
+        setTimeout(function () {
+          flipCards();
+          count = 0;
+          flippedCards = new Array();
+        }, 2000);
       }
     });
   });
@@ -97,9 +101,11 @@ function checkDoubles() {
 
 //remove css class "is-flipped"
 function flipCards() {
+  // timeout = setTimeout(function () {
   flippedCards.forEach((element) => {
     element.classList.toggle("is-flipped");
   });
+  // }, 2000);
 }
 
 //change css class to "is-hidden"(visibility:hidden) and count hidden cards
@@ -107,12 +113,14 @@ function hideCards() {
   flippedCards.forEach((element) => {
     element.parentElement.classList.add("is-hidden");
   });
-  hiddenCards += 2;
-  check12();
+  timeout = setTimeout(function () {
+    checkHidden();
+  }, 200);
 }
 
 //when there are 12 hidden cards do the following:
-function check12() {
+function checkHidden() {
+  hiddenCards += 2;
   if (hiddenCards == 12) {
     alert(`Congratulations!🎉`);
     showButton();
@@ -122,5 +130,6 @@ function check12() {
 //reload the page and show the new game button
 function showButton() {
   // gameButton.style.display = "block";
+
   document.location.reload();
 }
