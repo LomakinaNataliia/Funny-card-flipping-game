@@ -59,13 +59,12 @@ function setFlipping() {
   cards.forEach((card) => {
     card.addEventListener("click", function () {
       count++;
-
       if (count <= 2) {
         card.classList.toggle("is-flipped");
         card.parentElement.classList.toggle("is-flipped");
         //each flipped card push to array
         flippedCards.push(card);
-        //after 2 sec it starts to check 2 flipped cards
+        //after 2 sec it starts to check flipped cards
         setTimeout(function () {
           if (count == 2) {
             //check if cards are similar - hideCards(), if cards are different - flipCards(), then clear array
@@ -74,7 +73,6 @@ function setFlipping() {
             } else {
               flipCards();
             }
-
             count = 0;
             flippedCards = new Array();
           } else {
@@ -101,11 +99,9 @@ function checkDoubles() {
 
 //remove css class "is-flipped"
 function flipCards() {
-  // timeout = setTimeout(function () {
   flippedCards.forEach((element) => {
     element.classList.toggle("is-flipped");
   });
-  // }, 2000);
 }
 
 //change css class to "is-hidden"(visibility:hidden) and count hidden cards
