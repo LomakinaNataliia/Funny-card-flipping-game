@@ -1,8 +1,12 @@
+let start;
+let end;
+let playerName;
+let cardsAmount;
+
 let animals = new Array();
 let flippedCards = new Array();
 let count = 0;
 let hiddenCards = 0;
-var timeout;
 
 const gameButton = document.querySelector(".new-game-button");
 const cardsContainer = document.querySelector(".card__container");
@@ -18,14 +22,45 @@ gameButton.addEventListener("click", hideButton);
 function hideButton() {
   gameButton.style.display = "none";
   cardsContainer.classList.remove("is-hidden");
-
+  playerName = prompt(`Hello! What is your name?`);
+  cardsAmount = prompt(
+    `How much cards do you want to play? (Pls choose only even numbers from 4 to 12)`
+  );
+  start = performance.now();
+  // start = new Date();
+  checkCardsAmount();
   loadArray();
+  console.log(animals);
   shuffleArray();
   loadDivs();
   setFlipping();
 }
 
+//check the right amount of cards
+function checkCardsAmount() {
+  if (cardsAmount > 12) {
+    alert(`Pls choose only even numbers from 4 to 12`);
+    document.location.reload();
+  } else if (cardsAmount < 4) {
+    alert(`Pls choose only even numbers from 4 to 12`);
+    document.location.reload();
+  } else if (cardsAmount % 2 !== 0) {
+    alert(`Pls choose only even numbers from 4 to 12`);
+    document.location.reload();
+  } else {
+    return;
+  }
+}
+
 //create 12 objects in array (6 and 6 same imges)
+// function loadArray() {
+//   for (let i = 1; i < (cardsAmount+1) / 2; i++) {
+//     animals.push(`./img/animal${i}.jpg`);
+//   }
+//   for (let i = 1; i < (cardsAmount+1) / 2; i++) {
+//     animals.push(`./img/animal${i}.jpg`);
+//   }
+// }
 function loadArray() {
   for (let i = 1; i < 7; i++) {
     animals.push(`./img/animal${i}.jpg`);
@@ -59,33 +94,31 @@ function setFlipping() {
   cards.forEach((card) => {
     card.addEventListener("click", function () {
       count++;
-      if (count <= 2) {
-        card.classList.toggle("is-flipped");
-        card.parentElement.classList.toggle("is-flipped");
-        //each flipped card push to array
-        flippedCards.push(card);
-        //after 2 sec it starts to check flipped cards
-        setTimeout(function () {
-          if (count == 2) {
-            //check if cards are similar - hideCards(), if cards are different - flipCards(), then clear array
-            if (checkDoubles() === 0) {
-              hideCards();
-            } else {
-              flipCards();
-            }
-            count = 0;
-            flippedCards = new Array();
+      // if (count <= 2) {
+      card.classList.toggle("is-flipped");
+      card.parentElement.classList.toggle("is-flipped");
+      //each flipped card push to array
+      flippedCards.push(card);
+      //after 2 sec it starts to check flipped cards
+      setTimeout(function () {
+        if (count < 2) {
+          return;
+        } else if (count == 2) {
+          //check if cards are similar - hideCards(), if cards are different - flipCards(), then clear array
+          if (checkDoubles() === 0) {
+            hideCards();
           } else {
+            flipCards();
           }
-        }, 2000);
-      } else {
-        //when more than 2 cards are flipped - flip it backward and clear all counters and array
-        setTimeout(function () {
+          count = 0;
+          flippedCards = new Array();
+        } else {
+          //when more than 2 cards are flipped - flip it backward and clear all counters and array
           flipCards();
           count = 0;
           flippedCards = new Array();
-        }, 2000);
-      }
+        }
+      }, 2000);
     });
   });
 }
@@ -114,18 +147,32 @@ function hideCards() {
   }, 200);
 }
 
-//when there are 12 hidden cards do the following:
+//when all cards are hidden - do the following:
 function checkHidden() {
   hiddenCards += 2;
   if (hiddenCards == 12) {
-    alert(`Congratulations!🎉`);
+    end = performance.now();
+    // end = new Date();
+    // let durationMilisec = Math.floor(end.getTime() - start.getTime());
+    let durationMin = Math.floor((end - start) / 60000);
+    let durationSec = Math.floor((end - start) / 1000);
+    // showTime();
+    alert(
+      `Congratulations, ${playerName}!🎉 You've made it in ${durationMin}:${durationSec}`
+    );
     showButton();
   }
 }
 
+// function showTime() {
+//   if (durationMin < 10) {
+//     return `0${durationMin}`;
+//   } else if (durationSec < 10) {
+//     return `0${durationSec}`;
+//   }
+// }
 //reload the page and show the new game button
 function showButton() {
   // gameButton.style.display = "block";
-
   document.location.reload();
 }
