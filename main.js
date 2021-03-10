@@ -2,6 +2,7 @@ let start;
 let end;
 let playerName;
 let cardsAmount;
+let cardNum;
 
 let animals = new Array();
 let flippedCards = new Array();
@@ -10,8 +11,8 @@ let hiddenCards = 0;
 
 const gameButton = document.querySelector(".new-game-button");
 const cardsContainer = document.querySelector(".card__container");
-const cards = document.querySelectorAll(".card__inner");
-let cardImg = document.querySelectorAll("img");
+let cards;
+// let cardImg = document.querySelectorAll("img");
 
 //hide cards
 cardsContainer.classList.add("is-hidden");
@@ -28,11 +29,12 @@ function hideButton() {
   );
   start = performance.now();
   // start = new Date();
+
   checkCardsAmount();
   loadArray();
-  console.log(animals);
   shuffleArray();
-  loadDivs();
+  createDivs();
+  // loadDivs();
   setFlipping();
 }
 
@@ -80,7 +82,26 @@ function shuffleArray() {
   }
 }
 
-//fill in 12 blocks with each card
+//create exact amount of cards need for the game
+function createDivs() {
+  // console.log(animals);
+  cardsContainer.innerHTML = null;
+  for (let i = 0; i < animals.length; i++) {
+    cardsContainer.innerHTML += `<div class="card">
+        <div class="card__inner">
+          <div class="card__face card__face--front">            
+          </div>
+
+          <div class="card__face card__face--back">
+            <img src="${animals[i]}" alt="picture of the animal" />
+          </div>
+        </div>
+      </div>`;
+  }
+}
+// {/* <h2>${cardNum}</h2> */}
+//load cards with each img from array
+
 // function loadDivs() {
 //   for (let i = 0; i < cardImg.length; i++) {
 //     for (let j = 0; j < 1; j++) {
@@ -88,15 +109,17 @@ function shuffleArray() {
 //     }
 //   }
 // }
-function loadDivs() {
-  for (let i = 0; i < animals.length; i++) {
-    for (let j = 0; j < 1; j++) {
-      cardImg[i].src = animals[i];
-    }
-  }
-}
+// function loadDivs() {
+//   for (let i = 0; i < animals.length; i++) {
+//     for (let j = 0; j < 1; j++) {
+//       cardImg[i].src = animals[i];
+//     }
+//   }
+// }
+
 //each card has event on click to flip
 function setFlipping() {
+  cards = document.querySelectorAll(".card__inner");
   cards.forEach((card) => {
     card.addEventListener("click", function () {
       count++;
