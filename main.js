@@ -12,7 +12,7 @@ let hiddenCards = 0;
 const gameButton = document.querySelector(".new-game-button");
 const cardsContainer = document.querySelector(".card__container");
 let cards;
-// let cardImg = document.querySelectorAll("img");
+//
 
 //hide cards
 cardsContainer.classList.add("is-hidden");
