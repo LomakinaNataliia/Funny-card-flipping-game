@@ -52,23 +52,23 @@ function checkCardsAmount() {
   }
 }
 
-//create 12 objects in array (6 and 6 same imges)
-// function loadArray() {
-//   for (let i = 1; i < (cardsAmount+1) / 2; i++) {
-//     animals.push(`./img/animal${i}.jpg`);
-//   }
-//   for (let i = 1; i < (cardsAmount+1) / 2; i++) {
-//     animals.push(`./img/animal${i}.jpg`);
-//   }
-// }
+// create objects in array (twice with the same name)
 function loadArray() {
-  for (let i = 1; i < 7; i++) {
+  for (let i = 1; i < cardsAmount / 2 + 1; i++) {
     animals.push(`./img/animal${i}.jpg`);
   }
-  for (let i = 1; i < 7; i++) {
+  for (let i = 1; i < cardsAmount / 2 + 1; i++) {
     animals.push(`./img/animal${i}.jpg`);
   }
 }
+// function loadArray() {
+//   for (let i = 1; i < 7; i++) {
+//     animals.push(`./img/animal${i}.jpg`);
+//   }
+//   for (let i = 1; i < 7; i++) {
+//     animals.push(`./img/animal${i}.jpg`);
+//   }
+// }
 
 //shuffle images in array
 function shuffleArray() {
@@ -81,14 +81,20 @@ function shuffleArray() {
 }
 
 //fill in 12 blocks with each card
+// function loadDivs() {
+//   for (let i = 0; i < cardImg.length; i++) {
+//     for (let j = 0; j < 1; j++) {
+//       cardImg[i].src = animals[i];
+//     }
+//   }
+// }
 function loadDivs() {
-  for (let i = 0; i < cardImg.length; i++) {
+  for (let i = 0; i < animals.length; i++) {
     for (let j = 0; j < 1; j++) {
       cardImg[i].src = animals[i];
     }
   }
 }
-
 //each card has event on click to flip
 function setFlipping() {
   cards.forEach((card) => {
@@ -150,7 +156,7 @@ function hideCards() {
 //when all cards are hidden - do the following:
 function checkHidden() {
   hiddenCards += 2;
-  if (hiddenCards == 12) {
+  if (hiddenCards == animals.length) {
     end = performance.now();
     // end = new Date();
     // let durationMilisec = Math.floor(end.getTime() - start.getTime());
