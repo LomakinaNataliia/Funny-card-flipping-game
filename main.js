@@ -59,6 +59,7 @@ function loadArray() {
   for (let i = 1; i < cardsAmount / 2 + 1; i++) {
     animals.push(`./img/animal${i}.jpg`);
   }
+  // animals = [...animals,...animals];//concat?
   for (let i = 1; i < cardsAmount / 2 + 1; i++) {
     animals.push(`./img/animal${i}.jpg`);
   }
